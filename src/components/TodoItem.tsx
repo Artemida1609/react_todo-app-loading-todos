@@ -24,6 +24,19 @@ export const TodoItem: React.FC<Props> = ({
     setAllTodos(filteredList);
   };
 
+  const handleToggleTodo = () => {
+    //toggle completed or not todo
+    if (selectedTodos.includes(todo.id) || todo.completed) {
+      const filteredTodos = selectedTodos.filter(item => item !== todo.id);
+
+      setSelectedTodos(filteredTodos);
+    } else {
+      const newSelected = [...selectedTodos, todo.id];
+
+      setSelectedTodos(newSelected);
+    }
+  };
+
   return (
     <div
       data-cy="Todo"
@@ -37,20 +50,7 @@ export const TodoItem: React.FC<Props> = ({
           type="checkbox"
           className={classNames('todo__status')}
           checked={todo.completed}
-          onChange={() => {
-            //toggle completed or not todo
-            if (selectedTodos.includes(todo.id) || todo.completed) {
-              const filteredTodos = selectedTodos.filter(
-                item => item !== todo.id,
-              );
-
-              setSelectedTodos(filteredTodos);
-            } else {
-              const newSelected = [...selectedTodos, todo.id];
-
-              setSelectedTodos(newSelected);
-            }
-          }}
+          onChange={handleToggleTodo}
         />
       </label>
 

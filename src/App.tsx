@@ -9,13 +9,8 @@ import classNames from 'classnames';
 import { Header } from './components/Header';
 import { TodoList } from './components/TodoList';
 import { Footer } from './components/Footer';
+import { FilterType } from './enums/FilterType';
 // #endregion
-
-export enum TypeOfLink {
-  All = 'All',
-  active = 'active',
-  completed = 'completed',
-}
 
 export const App: React.FC = () => {
   // #region useState
@@ -23,7 +18,7 @@ export const App: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [allTodos, setAllTodos] = useState<Todo[]>([]);
   const [selectedTodos, setSelectedTodos] = useState<number[]>([]);
-  const [selectedLink, setSelectedLink] = useState(TypeOfLink.All);
+  const [selectedLink, setSelectedLink] = useState(FilterType.All);
   const [errorButton, setErrorButton] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [todosCounter, setTodosCounter] = useState(0);
@@ -47,12 +42,16 @@ export const App: React.FC = () => {
   }, [selectedTodos, todos, allTodos]);
 
   useEffect(() => {
-    if (selectedLink === TypeOfLink.active) {
-      setTodos(allTodos.filter(todo => !todo.completed));
-    } else if (selectedLink === TypeOfLink.completed) {
-      setTodos(allTodos.filter(todo => todo.completed));
-    } else {
-      setTodos(allTodos);
+    switch (selectedLink) {
+      case FilterType.active:
+        setTodos(allTodos.filter(todo => !todo.completed));
+        break;
+      case FilterType.completed:
+        setTodos(allTodos.filter(todo => todo.completed));
+        break;
+      default:
+        setTodos(allTodos);
+        break;
     }
   }, [selectedLink, allTodos]);
 
