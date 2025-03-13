@@ -1,11 +1,12 @@
 import classNames from 'classnames';
 import React from 'react';
 import { Todo } from '../types/Todo';
+import { TypeOfLink } from '../App';
 
 type Props = {
   todosCounter: number;
-  selectedLink: string;
-  setSelectedLink: (arg: string) => void;
+  selectedLink: TypeOfLink;
+  setSelectedLink: (arg: TypeOfLink) => void;
   todos: Todo[];
   setAllTodos: (arg: Todo[]) => void;
 };
@@ -28,10 +29,10 @@ export const Footer: React.FC<Props> = ({
         <a
           href="#/"
           className={classNames('filter__link', {
-            selected: selectedLink === 'All',
+            selected: selectedLink === TypeOfLink.All,
           })}
           data-cy="FilterLinkAll"
-          onClick={() => setSelectedLink('All')}
+          onClick={() => setSelectedLink(TypeOfLink.All)}
         >
           All
         </a>
@@ -39,10 +40,10 @@ export const Footer: React.FC<Props> = ({
         <a
           href="#/active"
           className={classNames('filter__link', {
-            selected: selectedLink === 'active',
+            selected: selectedLink === TypeOfLink.active,
           })}
           data-cy="FilterLinkActive"
-          onClick={() => setSelectedLink('active')}
+          onClick={() => setSelectedLink(TypeOfLink.active)}
         >
           Active
         </a>
@@ -50,10 +51,10 @@ export const Footer: React.FC<Props> = ({
         <a
           href="#/completed"
           className={classNames('filter__link', {
-            selected: selectedLink === 'completed',
+            selected: selectedLink === TypeOfLink.completed,
           })}
           data-cy="FilterLinkCompleted"
-          onClick={() => setSelectedLink('completed')}
+          onClick={() => setSelectedLink(TypeOfLink.completed)}
         >
           Completed
         </a>

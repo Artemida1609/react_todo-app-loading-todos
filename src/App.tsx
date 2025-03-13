@@ -11,13 +11,19 @@ import { TodoList } from './components/TodoList';
 import { Footer } from './components/Footer';
 // #endregion
 
+export enum TypeOfLink {
+  All = 'All',
+  active = 'active',
+  completed = 'completed',
+}
+
 export const App: React.FC = () => {
   // #region useState
 
   const [todos, setTodos] = useState<Todo[]>([]);
   const [allTodos, setAllTodos] = useState<Todo[]>([]);
   const [selectedTodos, setSelectedTodos] = useState<number[]>([]);
-  const [selectedLink, setSelectedLink] = useState('All');
+  const [selectedLink, setSelectedLink] = useState(TypeOfLink.All);
   const [errorButton, setErrorButton] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [todosCounter, setTodosCounter] = useState(0);
@@ -41,9 +47,9 @@ export const App: React.FC = () => {
   }, [selectedTodos, todos, allTodos]);
 
   useEffect(() => {
-    if (selectedLink === 'active') {
+    if (selectedLink === TypeOfLink.active) {
       setTodos(allTodos.filter(todo => !todo.completed));
-    } else if (selectedLink === 'completed') {
+    } else if (selectedLink === TypeOfLink.completed) {
       setTodos(allTodos.filter(todo => todo.completed));
     } else {
       setTodos(allTodos);

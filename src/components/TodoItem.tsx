@@ -17,6 +17,13 @@ export const TodoItem: React.FC<Props> = ({
   todos,
   setAllTodos,
 }) => {
+  const handleDeleteButton = () => {
+    const deletedTodo = todo.id;
+    const filteredList = todos.filter(todoItem => todoItem.id !== deletedTodo);
+
+    setAllTodos(filteredList);
+  };
+
   return (
     <div
       data-cy="Todo"
@@ -54,14 +61,7 @@ export const TodoItem: React.FC<Props> = ({
         type="button"
         className="todo__remove"
         data-cy="TodoDelete"
-        onClick={() => {
-          const deletedTodo = todo.id;
-          const filteredList = todos.filter(
-            todoItem => todoItem.id !== deletedTodo,
-          );
-
-          setAllTodos(filteredList);
-        }}
+        onClick={handleDeleteButton}
       >
         ×
       </button>
